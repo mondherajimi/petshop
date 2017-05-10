@@ -1,0 +1,39 @@
+{
+  "name": "petshop",
+  "version": "0.0.1",
+  "versionUI": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start-dev": "cross-env NODE_ENV=development CONFIG=\"configuration.json\" nodemon ./app/index.js --exec babel-node ./app/index.js",
+    "build": "npm run build:server && npm run build:ui && npm run build:copy-files",
+    "build:ui": "cd ./client && npm install && npm run build",
+    "build:server": "babel app -d build",
+    "build:copy-files": "babel-node ./scripts/copy-files.js",
+    "start": "cross-env NODE_ENV=production CONFIG=\"configuration.json\" babel-node ./app/index.js",
+    "generate-redux-crud": "babel-node scripts/generator/redux-crud/generate-sources"
+  },
+  "dependencies": {
+    "body-parser": "~1.16.0",
+    "cookie-parser": "~1.4.3",
+    "cross-env": "^3.2.4",
+    "debug": "~2.6.0",
+    "ejs": "~2.5.5",
+    "express": "~4.14.1",
+    "mongo-sanitize": "^1.0.0",
+    "mongoose": "^4.9.1",
+    "mongoose-beautiful-unique-validation": "^5.1.1",
+    "morgan": "~1.7.0",
+    "nconf": "^0.8.4",
+    "serve-favicon": "~2.3.2",
+    "socket.io": "^1.7.3"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.24.0",
+    "babel-preset-es2015": "^6.24.0",
+    "babel-preset-stage-2": "^6.22.0",
+    "cross-env": "^3.2.4",
+    "fs-extra": "^2.1.2",
+    "nodemon": "^1.11.0",
+    "path": "^0.12.7"
+  }
+}
