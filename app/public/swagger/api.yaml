@@ -1,0 +1,111 @@
+swagger: '2.0'
+info:
+  version: 1.0.0
+  title: Petshop
+  description: |
+   ** API REST de l'animalerie **
+host: localhost:4000
+basePath: /api
+schemes:
+  - http
+consumes:
+  - application/json
+produces:
+  - application/json
+paths:
+  /species:
+    get:
+      responses:
+        200:
+          description: Liste des espèces d'animaux
+          schema:
+            title: Species
+            type: string
+  /pets:
+    get:
+      responses:
+        200:
+          description: Liste des animaux du catalogue
+          schema:
+            title: Pets
+            type: array
+            items:
+              $ref: '#/definitions/Pet'
+    post:
+      parameters:
+        - name: pet
+          in: body
+          description: Animal à ajouter
+          schema:
+            $ref: '#/definitions/Pet'
+          required: true
+      responses:
+        201:
+          description: L'animal a été ajouté au catalogue (retourne l'animal ajouté)
+        500:
+          description: Une erreur s'est  produite lors de l'ajout
+  /pets/{petId}:
+    get:
+      parameters:
+        - name: petId
+          in: path
+          type: string
+          description: ID de l'animal
+          required: true
+      responses:
+        200:
+          description: Retourne l'animal selon son ID
+        404:
+          description: Animal non trouvé
+    delete:
+      parameters:
+        - name: petId
+          in: path
+          type: string
+          description: ID de l'animal
+          required: true
+      responses:
+        200:
+          description: L'animal a été supprimé du catalogue
+        404:
+          description: Animal non trouvé
+        500:
+          description: Une erreur s'est  produite lors de la suppression
+    put:
+      parameters:
+      - name: petId
+        in: path
+        type: string
+        description: ID de l'animal à mettre à jour
+        required: true
+      - name: pet
+        in: body
+        description: Animal
+        schema:
+          $ref: '#/definitions/Pet'
+        required: true
+      responses:
+        201:
+          description: Animal mis à jour (retourne l'animal modifié)
+        404:
+          description: Animal non trouvé
+
+definitions:
+  Pet:
+    type: object
+    properties:
+      _id:
+        type: string
+      name:
+        type: string
+      species:
+        type: string
+      birthday:
+        type: string
+        format: date
+      created:
+        type: string
+        format: date-time
+      updated:
+        type: string
+        format: date-time

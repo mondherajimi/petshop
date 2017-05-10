@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Petshop</title>
+  <meta name="description" content="">
+  <meta name="author" content="Mondher AJIMI">
+</head>
+<body>
+  <%if (process.env.NODE_ENV !== 'development') { %>
+    <link type="text/css" rel="stylesheet" href="<%= config.cssPath %>">
+  <% } %>
+  <div id="root"></div>
+  <%if (process.env.NODE_ENV) { %>
+    <script>
+	    window.__ENVIRONMENT__ = '<%= process.env.NODE_ENV %>'
+	    window.___API_URL___ = '<%= config.apiUrl %>'
+    </script>
+  <% } %>
+  <%if (process.env.NODE_ENV === 'development') { %>
+    <script src="http://localhost:3000/static/js/bundle.js"></script>
+  <% } else { %>
+    <script src="<%= config.bundlePath %>"></script>
+  <% } %>
+</body>
+</html>
